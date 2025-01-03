@@ -29,6 +29,7 @@ class GlobalField(Enum):
     asset_create_min_balance = (15, "AssetCreateMinBalance", TealType.uint64, 10)
     asset_opt_in_min_balance = (16, "AssetOptInMinBalance", TealType.uint64, 10)
     genesis_hash = (17, "GenesisHash", TealType.bytes, 10)
+    payouts_go_online_fee =  (18, "PayoutsGoOnlineFee", TealType.uint64, 11)
 
     def __init__(self, id: int, name: str, type: TealType, min_version: int) -> None:
         self.id = id
@@ -182,6 +183,14 @@ class Global(LeafExpr):
 
         Requires program version 10 or higher."""
         return cls(GlobalField.genesis_hash)
+
+
+    @classmethod
+    def payouts_go_online_fee(cls) -> "Global":
+        """Get the payouts go online fee for the network.
+
+        Requires program version 11 or higher."""
+        return cls(GlobalField.payouts_go_online_fee)
 
 
 Global.__module__ = "pyteal"
