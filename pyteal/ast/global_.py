@@ -30,6 +30,7 @@ class GlobalField(Enum):
     asset_opt_in_min_balance = (16, "AssetOptInMinBalance", TealType.uint64, 10)
     genesis_hash = (17, "GenesisHash", TealType.bytes, 10)
     payouts_go_online_fee =  (18, "PayoutsGoOnlineFee", TealType.uint64, 11)
+    payouts_min_balance = (19, "PayoutsMinBalance", TealType.uint64, 11)
 
     def __init__(self, id: int, name: str, type: TealType, min_version: int) -> None:
         self.id = id
@@ -191,6 +192,13 @@ class Global(LeafExpr):
 
         Requires program version 11 or higher."""
         return cls(GlobalField.payouts_go_online_fee)
+
+    @classmethod
+    def payouts_min_balance(cls) -> "Global":
+        """Get the minimum balance an account must have in the agreement round to receive block payouts in the proposal round.
+
+        Requires program version 11 or higher."""
+        return cls(GlobalField.payouts_min_balance)
 
 
 Global.__module__ = "pyteal"
